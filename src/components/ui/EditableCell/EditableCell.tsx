@@ -8,8 +8,14 @@ interface EditableCellProps {
   onTab?: () => void;
   disabled?: boolean;
 }
-// eslint-disable-next-line
-export const EditableCell = ({ value: initialValue, onSave, onComplete, onTab, disabled = false }: EditableCellProps) => {
+ 
+export const EditableCell = ({
+  value: initialValue,
+  onSave,
+  onComplete,
+  onTab,
+  disabled = false,
+}: EditableCellProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(initialValue);
 
