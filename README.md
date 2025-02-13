@@ -1,7 +1,7 @@
 # Task Management Application
 
 ## Overview
-A task management application built with React, TypeScript, and Material-UI. Features include drag-and-drop task reordering, inline editing, and persistent storage.
+A task management application built with React, TypeScript, and Material-UI. Features include drag-and-drop task reordering, inline editing, and a task limit system (maximum 4 tasks) to demonstrate error handling.
 
 ## Tech Stack
 - React + TypeScript + Vite
