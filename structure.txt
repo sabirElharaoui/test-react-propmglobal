@@ -1,0 +1,22 @@
+src/
+├── components/
+│   └── ui/              # Reusable UI components
+│       ├── EditableCell/
+│       └── Table/
+├── features/
+│   └── tasks/          # Task feature
+│       └── components/
+│           ├── TaskList.tsx
+│           ├── SortableTask.tsx
+│           ├── TaskFilter.tsx
+│           ├── TaskManager.tsx
+│           └── NewTaskForm.tsx
+├── shared/             # Shared utilities and types
+│   ├── types/
+│   └── task.types.ts
+│   └── hooks/
+│       └── redux.ts
+└── store/              # Global state management
+    ├── slices/
+    │   └── taskSlice.ts
+    └── store.ts
