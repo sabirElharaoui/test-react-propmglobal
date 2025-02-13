@@ -34,7 +34,6 @@ export const NewTaskForm = ({ onSubmit }: NewTaskFormProps) => {
   return (
     <Table>
       <TableRow>
-        <TableCell padding="checkbox" />
         <TableCell>
           <Input
             name="title"

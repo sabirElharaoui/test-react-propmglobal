@@ -14,8 +14,6 @@ class TaskService {
   }
 
   async createTask(title: string, description: string): Promise<Task> {
-    await delay(500); // Simulate network delay
-    
     if (this.tasks.length >= this.MAX_TASKS) {
       throw new Error('Maximum task limit reached (4 tasks).');
     }
@@ -36,7 +34,7 @@ class TaskService {
     if (taskIndex === -1) {
       throw new Error('Task not found');
     }
-    
+
     this.tasks[taskIndex] = {
       ...this.tasks[taskIndex],
       ...updates,
