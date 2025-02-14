@@ -5,15 +5,17 @@ import { Input } from '../../../components/ui/Input';
 
 interface NewTaskFormProps {
   onSubmit: (title: string, description: string) => void;
+  onTaskCreated?: () => void;
 }
 
-export const NewTaskForm = ({ onSubmit }: NewTaskFormProps) => {
+export const NewTaskForm = ({ onSubmit, onTaskCreated }: NewTaskFormProps) => {
   const [newTask, setNewTask] = useState({ title: '', description: '' });
 
   const handleSubmit = () => {
     if (newTask.title.trim() && newTask.description.trim()) {
       onSubmit(newTask.title, newTask.description);
       setNewTask({ title: '', description: '' });
+      onTaskCreated?.();
     }
   };
 

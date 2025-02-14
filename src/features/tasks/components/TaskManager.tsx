@@ -33,6 +33,10 @@ export const TaskManager = () => {
     [createTask]
   );
 
+  const handleTaskCreated = useCallback(() => {
+    updateTaskFilter('pending');
+  }, [updateTaskFilter]);
+
   const handleFilterChange = useCallback(
     (newFilter: TaskFilterType) => {
       updateTaskFilter(newFilter);
@@ -81,7 +85,7 @@ export const TaskManager = () => {
         />
       )}
 
-      <NewTaskForm onSubmit={handleCreateTask} />
+      <NewTaskForm onSubmit={handleCreateTask} onTaskCreated={handleTaskCreated} />
     </Box>
   );
 };
