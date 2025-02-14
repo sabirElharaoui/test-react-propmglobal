@@ -1,5 +1,5 @@
 import { TableBody, TableHead, TableRow, TableCell } from '@mui/material';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Table } from '../../../components/ui/Table/Table';
 import SortableTaskItem from './SortableTaskItem';
 import { Task } from '../../../shared/types/task.types';
@@ -21,27 +21,22 @@ interface TaskListProps {
   onReorderTasks: (oldIndex: number, newIndex: number) => Promise<void>;
 }
 
-export const TaskList = ({ tasks, onUpdateTask, onToggleStatus, onReorderTasks }: TaskListProps) => {
+export const TaskList = memo(({ tasks, onUpdateTask, onToggleStatus, onReorderTasks }: TaskListProps) => {
   const sensors = useSensors(useSensor(PointerSensor), useSensor(KeyboardSensor));
   const [loadingTaskId, setLoadingTaskId] = useState<string | null>(null);
 
-  const handleDragEnd = async (event: DragEndEvent) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (active.id !== over?.id) {
       const oldIndex = tasks.findIndex(task => task.id === active.id);
       const newIndex = tasks.findIndex(task => task.id === over?.id);
-      await onReorderTasks(oldIndex, newIndex);
+      onReorderTasks(oldIndex, newIndex);
     }
   };
 
-
-  const handleToggleStatus = async (id: string) => {
+  const handleToggleStatus = (id: string) => {
     setLoadingTaskId(id);
-    try {
-      await onToggleStatus(id);
-    } finally {
-      setLoadingTaskId(null);
-    }
+    onToggleStatus(id).finally(() => setLoadingTaskId(null));
   };
 
   return (
@@ -71,6 +66,6 @@ export const TaskList = ({ tasks, onUpdateTask, onToggleStatus, onReorderTasks }
       </TableBody>
     </Table>
   );
-};
+});
 
 export default TaskList;

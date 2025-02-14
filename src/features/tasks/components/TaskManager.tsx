@@ -1,13 +1,51 @@
 import { Box, CircularProgress, Alert } from '@mui/material';
+import { useCallback } from 'react';
 import { TaskList } from './TaskList';
 import { TaskFilter } from './TaskFilter';
 import { NewTaskForm } from './NewTaskForm';
 import { useTasks } from '../hooks/useTasks';
 import { useTask } from '../hooks/useTask';
+import { Task, TaskFilterType } from '../../../shared/types/task.types';
 
 export const TaskManager = () => {
   const { tasks, filter, loading, error, updateTaskFilter, reorderTaskList } = useTasks();
   const { createTask, updateTaskDetails, toggleTask } = useTask();
+
+  // Memoize handlers to prevent unnecessary re-renders of child components
+  const handleUpdateTask = useCallback(
+    async (id: string, updates: Partial<Task>) => {
+      await updateTaskDetails(id, updates);
+    },
+    [updateTaskDetails]
+  );
+
+  const handleToggleStatus = useCallback(
+    async (id: string) => {
+      await toggleTask(id);
+    },
+    [toggleTask]
+  );
+
+  const handleCreateTask = useCallback(
+    async (title: string, description: string) => {
+      await createTask(title, description);
+    },
+    [createTask]
+  );
+
+  const handleFilterChange = useCallback(
+    (newFilter: TaskFilterType) => {
+      updateTaskFilter(newFilter);
+    },
+    [updateTaskFilter]
+  );
+
+  const handleReorderTasks = useCallback(
+    async (fromIndex: number, toIndex: number) => {
+      await reorderTaskList(fromIndex, toIndex);
+    },
+    [reorderTaskList]
+  );
 
   return (
     <Box>
@@ -27,7 +65,7 @@ export const TaskManager = () => {
           alignItems: 'center',
         }}
       >
-        <TaskFilter value={filter} onChange={updateTaskFilter} />
+        <TaskFilter value={filter} onChange={handleFilterChange} />
       </Box>
 
       {loading ? (
@@ -37,13 +75,13 @@ export const TaskManager = () => {
       ) : (
         <TaskList
           tasks={tasks}
-          onUpdateTask={updateTaskDetails}
-          onToggleStatus={toggleTask}
-          onReorderTasks={reorderTaskList}
+          onUpdateTask={handleUpdateTask}
+          onToggleStatus={handleToggleStatus}
+          onReorderTasks={handleReorderTasks}
         />
       )}
 
-      <NewTaskForm onSubmit={createTask} />
+      <NewTaskForm onSubmit={handleCreateTask} />
     </Box>
   );
 };

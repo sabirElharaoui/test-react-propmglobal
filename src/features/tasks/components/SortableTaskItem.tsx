@@ -4,6 +4,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { TaskCell } from './TaskCell';
 import { Task } from '../../../shared/types/task.types';
+import { memo } from 'react';
 
 interface SortableTaskItemProps {
   task: Task;
@@ -12,7 +13,7 @@ interface SortableTaskItemProps {
   onToggle: () => void;
 }
 
-export const SortableTaskItem = ({ task, loading = false, onEdit, onToggle }: SortableTaskItemProps) => {
+export const SortableTaskItem = memo(({ task, loading = false, onEdit, onToggle }: SortableTaskItemProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: task.id });
 
   const style = {
@@ -52,11 +53,7 @@ export const SortableTaskItem = ({ task, loading = false, onEdit, onToggle }: So
         {loading ? (
           <CircularProgress size={20} />
         ) : (
-          <Checkbox
-            checked={task.status === 'completed'}
-            onChange={onToggle}
-            disabled={loading}
-          />
+          <Checkbox checked={task.status === 'completed'} onChange={onToggle} disabled={loading} />
         )}
       </TableCell>
 
@@ -78,6 +75,6 @@ export const SortableTaskItem = ({ task, loading = false, onEdit, onToggle }: So
       </TableCell>
     </TableRow>
   );
-};
+});
 
 export default SortableTaskItem;

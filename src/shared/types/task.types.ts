@@ -6,4 +6,4 @@ export interface Task {
   createdAt: string;
 }
 
-export type TaskFilter = 'all' | 'completed' | 'pending';
+export type TaskFilterType = 'all' | 'completed' | 'pending';

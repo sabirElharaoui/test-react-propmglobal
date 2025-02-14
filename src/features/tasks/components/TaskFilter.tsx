@@ -1,12 +1,13 @@
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { TaskFilter as TaskFilterType } from '../../../shared/types/task.types';
+import { memo } from 'react';
 
 interface TaskFilterProps {
   value: TaskFilterType;
   onChange: (value: TaskFilterType) => void;
 }
 
-export const TaskFilter = ({ value, onChange }: TaskFilterProps) => {
+export const TaskFilter = memo(({ value, onChange }: TaskFilterProps) => {
   return (
     <FormControl sx={{ minWidth: 120 }}>
       <InputLabel>Filter</InputLabel>
@@ -17,6 +18,6 @@ export const TaskFilter = ({ value, onChange }: TaskFilterProps) => {
       </Select>
     </FormControl>
   );
-};
+});
 
 export default TaskFilter;

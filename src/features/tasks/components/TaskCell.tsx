@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { EditableCell } from '../../../components/ui/EditableCell/EditableCell';
+import { memo } from 'react';
 
 interface TaskCellProps {
   value: string;
@@ -8,7 +9,7 @@ interface TaskCellProps {
   disabled?: boolean;
 }
 
-export const TaskCell = ({ value, onSave, isCompleted = false, disabled = false }: TaskCellProps) => {
+export const TaskCell = memo(({ value, onSave, isCompleted = false, disabled = false }: TaskCellProps) => {
   return (
     <Box
       sx={{
@@ -19,6 +20,6 @@ export const TaskCell = ({ value, onSave, isCompleted = false, disabled = false 
       <EditableCell value={value} onSave={onSave} disabled={disabled} />
     </Box>
   );
-};
+});
 
 export default TaskCell;

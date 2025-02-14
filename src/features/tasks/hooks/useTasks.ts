@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAppSelector, useAppDispatch } from '../../../shared/hooks/redux';
 import {
   setFilter,
@@ -19,11 +19,13 @@ export const useTasks = () => {
     dispatch(fetchTasks());
   }, [dispatch]);
 
-  const filteredTasks = tasks.filter((task: Task) => {
-    if (filter === 'completed') return task.status === 'completed';
-    if (filter === 'pending') return task.status === 'pending';
-    return true;
-  });
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((task: Task) => {
+      if (filter === 'completed') return task.status === 'completed';
+      if (filter === 'pending') return task.status === 'pending';
+      return true;
+    });
+  }, [tasks, filter]);
 
   const addTask = async (title: string, description: string) => {
     await dispatch(createTask({ title, description })).unwrap();
