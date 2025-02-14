@@ -8,7 +8,7 @@ import {
   toggleTaskStatusAsync,
   reorderTasksAsync,
 } from '../../../store/slices/taskSlice';
-import { Task, TaskFilter } from '../../../shared/types/task.types';
+import { Task, TaskFilterType } from '../../../shared/types/task.types';
 
 export const useTasks = () => {
   const dispatch = useAppDispatch();
@@ -39,7 +39,7 @@ export const useTasks = () => {
     await dispatch(toggleTaskStatusAsync(id)).unwrap();
   };
 
-  const updateTaskFilter = (newFilter: TaskFilter) => {
+  const updateTaskFilter = (newFilter: TaskFilterType) => {
     dispatch(setFilter(newFilter));
   };
 

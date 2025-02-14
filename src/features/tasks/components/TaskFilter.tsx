@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import { TaskFilter as TaskFilterType } from '../../../shared/types/task.types';
+import { TaskFilterType } from '../../../shared/types/task.types';
 import { memo } from 'react';
 
 interface TaskFilterProps {
